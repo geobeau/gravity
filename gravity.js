@@ -38,12 +38,18 @@ Engine.run(engine);
 Render.run(render);
 
 function startRocket(){
-  Matter.Body.applyForce( rocket, {x: rocket.position.x, y: rocket.position.y}, {x: 0, y: -0.06});
+  rocketEnginePush(0.06);
+}
+
+function turnRocket(){
+  rocketRCSPush(0.025);
 }
 
 function shootRocket(){
-  Matter.Body.applyForce( rocket, {x: rocket.position.x, y: rocket.position.y}, {x: 0.1, y: 0});
+  rocketRCSPush(-0.02);
+  rocketEnginePush(0.09);
 }
 //
 setTimeout(startRocket,4000)
+setTimeout(turnRocket,5000)
 setTimeout(shootRocket,6000)
