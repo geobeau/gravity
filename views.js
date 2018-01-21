@@ -35,7 +35,7 @@ function createView(){
     if (centreDist > 5) {
       // create a vector to translate the view, allowing the user to control view speed
       var direction = Vector.normalise(deltaCentre),
-      speed = Math.min(10, Math.pow(centreDist - 50, 2) * 0.0005);
+      speed = Math.min(10, Math.pow(centreDist - 5, 2) * 0.0005);
 
       translate = Vector.mult(direction, speed);
 
