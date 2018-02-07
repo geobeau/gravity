@@ -81,7 +81,7 @@ function createTrail(){
     render.context.globalAlpha = 1;
     Render.endViewTransform(render);
 
-    if (trail.length > 2000) {
+    if (trail.length > 5000) {
       trail.pop();
     }
   });
