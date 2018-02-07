@@ -21,10 +21,7 @@ function rocketEnginePush(force) {
 }
 
 function rocketRCSPush(force) {
-  var pushVector={x: 0, y: 0-force};
-  var sidePush=Vector.perp(Vector.rotate(pushVector, rocket.angle));
-  var rocketTopMiddle={x: (rocket.vertices[0].x+rocket.vertices[1].x)/2, y: (rocket.vertices[0].y+rocket.vertices[1].y)/2};
-  Matter.Body.applyForce( rocket, rocketTopMiddle, sidePush);
+  rocket.torque = force;
 }
 
 function rotateRocket(force) {

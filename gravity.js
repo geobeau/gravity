@@ -1,3 +1,5 @@
+tickDuration = 1000 / 60
+
 Matter.use('matter-attractors');
 
 var Engine = Matter.Engine,
@@ -6,6 +8,7 @@ World = Matter.World,
 Bodies = Matter.Bodies,
 Vector = Matter.Vector,
 Events = Matter.Events,
+Runner = Matter.Runner,
 
 Bounds = Matter.Bounds,
 
@@ -34,7 +37,13 @@ createRocket();
 createTrail();
 createView();
 
-Engine.run(engine);
+var runner = Runner.create({
+    delta: tickDuration,
+    isFixed: true,
+    enabled: true
+});
+
+Runner.run(runner, engine);
 Render.run(render);
 
 function startRocket(){
@@ -50,6 +59,8 @@ function shootRocket(){
   rocketEnginePush(0.09);
 }
 //
-setTimeout(startRocket,4000)
-setTimeout(turnRocket,5000)
-setTimeout(shootRocket,6000)
+scheduleActions(1000,{"actionType":"burn","options":{"burnTime":9000,"impulsion":50}})
+scheduleActions(4000,{"actionType":"rcs","options":{"burnTime":2000,"impulsion":80}})
+scheduleActions(8000,{"actionType":"rcs","options":{"burnTime":2000,"impulsion":-80}})
+
+Events.on(runner, "beforeTick", runScheduler)
