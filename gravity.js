@@ -46,21 +46,8 @@ var runner = Runner.create({
 Runner.run(runner, engine);
 Render.run(render);
 
-function startRocket(){
-  rocketEnginePush(0.06);
-}
+Events.on(runner, "beforeTick", runScheduler)
 
-function turnRocket(){
-  rocketRCSPush(0.025);
-}
-
-function shootRocket(){
-  rocketRCSPush(-0.02);
-  rocketEnginePush(0.09);
-}
-//
 scheduleActions(1000,{"actionType":"burn","options":{"burnTime":9000,"impulsion":50}})
 scheduleActions(4000,{"actionType":"rcs","options":{"burnTime":2000,"impulsion":80}})
 scheduleActions(8000,{"actionType":"rcs","options":{"burnTime":2000,"impulsion":-80}})
-
-Events.on(runner, "beforeTick", runScheduler)
