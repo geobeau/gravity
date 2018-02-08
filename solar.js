@@ -1,15 +1,15 @@
 function createSolarSystem() {
-  ground = Bodies.circle(400, 1600, 1000, {
+  ground = Bodies.circle(400, 10600, 10000, {
     // isStatic: true,
     plugin: {
       attractors: [
         MatterAttractors.Attractors.gravity
       ]
     }
-  });
+  }, maxSides=1000);
 
   constraint = Matter.Constraint.create({
-    pointA: { x: 400, y: 1600 },
+    pointA: { x: 400, y: 10600 },
     bodyB: ground,
     length: 0
   });
@@ -18,7 +18,7 @@ function createSolarSystem() {
   World.add(engine.world, constraint);
 
 
-  Matter.Body.setMass(ground, 70000)
+  Matter.Body.setMass(ground, 7000000)
 
 
 }

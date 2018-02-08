@@ -27,7 +27,6 @@ var render = Render.create({
     height: document.documentElement.clientHeight,
     wireframes: false,
     hasBounds: true,
-    showAngleIndicator: true
   }
 });
 
@@ -48,6 +47,6 @@ Render.run(render);
 
 Events.on(runner, "beforeTick", runScheduler)
 
-scheduleActions(1000,{"actionType":"burn","options":{"burnTime":9000,"impulsion":50}})
+scheduleActions(1000,{"actionType":"burn","options":{"burnTime":9000,"impulsion":60}})
 scheduleActions(4000,{"actionType":"rcs","options":{"burnTime":2000,"impulsion":80}})
 scheduleActions(8000,{"actionType":"rcs","options":{"burnTime":2000,"impulsion":-80}})

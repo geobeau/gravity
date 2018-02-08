@@ -6,17 +6,11 @@ function createView(){
   };
 
   // make the world bounds a little bigger than the render bounds
-  world.bounds.min.x = -2500;
-  world.bounds.min.y = -2500;
-  world.bounds.max.x = 3500;
-  world.bounds.max.y = 3500;
+  world.bounds.min.x = -20500;
+  world.bounds.min.y = -20500;
+  world.bounds.max.x = 21500;
+  world.bounds.max.y = 21500;
 
-  // keep track of current bounds scale (view zoom)
-  var boundsScaleTarget = 1,
-  boundsScale = {
-    x: 1,
-    y: 1
-  };
 
   // use the engine tick event to control our view
   Events.on(engine, 'beforeTick', function() {
