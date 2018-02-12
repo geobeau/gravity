@@ -75,14 +75,14 @@ function createTrail(){
 
 function getRocketAngularAngle(){
   var refAngle = {x: 0, y: 1};
-  return Vector.angle(refAngle,rocket.position)
+  return Vector.angle(refAngle,rocket.velocity)
 }
 
 function updateStats(){
   document.getElementById("rocket-speed").innerHTML = Math.floor(rocket.speed*100)*4;
   document.getElementById("rocket-angular-speed").innerHTML = Math.floor(rocket.angularSpeed*1000);
   document.getElementById("rocket-angle").innerHTML = Math.round(rocket.angle * 180 / Math.PI);
-  document.getElementById("rocket-velocity-angle").innerHTML = Math.round(getRocketAngularAngle() * 180 / Math.PI);
+  document.getElementById("rocket-velocity-angle").innerHTML = Math.round(getRocketAngularAngle() * 180 / Math.PI)+90;
   document.getElementById("rocket-height").innerHTML = Math.floor(Vector.magnitude(Vector.sub(rocket.position, ground.position))) - earthSize;
   updateMinimap();
 }
