@@ -1,10 +1,13 @@
 function createSolarSystem() {
-  ground = Bodies.circle(400, 10600, 10000, {
+  ground = Bodies.circle(400, 10600, earthSize, {
     // isStatic: true,
     plugin: {
       attractors: [
         MatterAttractors.Attractors.gravity
       ]
+    },
+    render: {
+      fillStyle: earthColor
     }
   }, maxSides=1000);
 

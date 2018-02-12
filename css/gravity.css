@@ -1,0 +1,55 @@
+html, body, #gravity-wrapper {
+    height: 100%;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#gravity-dashboard {
+  height: 50px;
+  text-align: center;
+  box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 5;
+}
+
+#gravity-dashboard h1 {
+  padding-top: 3px;
+  margin: 0px;
+  text-transform: uppercase;
+  font-weight: 200;
+  letter-spacing: 5px;
+}
+
+#gravity-render, #gravity-render canvas {
+  position: relative;
+}
+
+#gravity-render {
+  float: left;
+}
+
+#gravity-command {
+  width: 300px;
+  height: 100%;
+  padding-top: 40px;
+  float: right;
+  box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);
+}
+
+#gravity-command h2 {
+  padding-top: 3px;
+  margin: 0px;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-align: center;
+}
+
+#previous-minimap {
+  display: none;
+}

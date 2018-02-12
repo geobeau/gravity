@@ -14,6 +14,7 @@ function runScheduler(){
       actionScheduler.splice(actionScheduler.indexOf(actionTmp[i]),1);
     }
   }
+  updateView();
 }
 
 function executeAction(action){

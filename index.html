@@ -5,10 +5,38 @@
   <meta charset="utf-8">
 
   <title>Gravity</title>
-
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/gravity.css">
+  <link rel="stylesheet" href="css/gravity-colors.css">
 </head>
 
 <body>
+  <div id="gravity-dashboard">
+    <h1>Gravity</h1>
+  </div>
+  <div id="gravity-wrapper">
+    <div id="gravity-render"></div>
+
+    <div id="gravity-command">
+      <div id="command-title">
+        <h2>Control center</h2>
+      </div>
+      <div id="command-stats">
+        <h3>Rocket</h3>
+        <table>
+            <tr><td>Speed:</td><td><span id="rocket-speed"></span></td></tr>
+            <tr><td>Angular speed:</td><td><span id="rocket-angular-speed"></span></td></tr>
+            <tr><td>Angle:</td><td><span id="rocket-angle"></span></td></tr>
+            <tr><td>Velocity angle:</td><td><span id="rocket-velocity-angle"></span></td></tr>
+            <tr><td>Height:</td><td><span id="rocket-height"></span></td></tr>
+        </table>
+      </div>
+      <div><canvas id="minimap" width="150" height="150"></canvas><canvas id="previous-minimap" width="150" height="150"></canvas></div>
+
+    </div>
+  </div>
+
+
   <script src="dependencies/js/matter.js" type="text/javascript"></script>
   <script src="dependencies/js/matter-attractors.js" type="text/javascript"></script>
   <script src="js/solar.js" type="text/javascript"></script>

@@ -1,6 +1,6 @@
-function createView(){
+function initView(){
 
-  var viewportCentre = {
+  viewportCentre = {
     x: render.options.width * 0.5,
     y: render.options.height * 0.5
   };
@@ -10,46 +10,39 @@ function createView(){
   world.bounds.min.y = -20500;
   world.bounds.max.x = 21500;
   world.bounds.max.y = 21500;
+}
 
-
-  // use the engine tick event to control our view
-  Events.on(engine, 'beforeTick', function() {
-    var world = engine.world,
-    // mouse = mouseConstraint.mouse,
+function updateView(){
+  var world = engine.world,
     translate;
 
+  var deltaCentre = Vector.sub(Vector.sub(rocket.position, render.bounds.min), viewportCentre)
 
+  centreDist = Vector.magnitude(deltaCentre);
 
-    // get vector from mouse relative to centre of viewport
-    var deltaCentre = Vector.sub(Vector.sub(rocket.position, render.bounds.min), viewportCentre)
-    // var deltaCentre = Vector.sub(rocket.position, viewportCentre),
-    centreDist = Vector.magnitude(deltaCentre);
+  // translate the view if mouse has moved over 50px from the centre of viewport
+  if (centreDist >= 0) {
+    // create a vector to translate the view, allowing the user to control view speed
+    var direction = Vector.normalise(deltaCentre);
 
-    // translate the view if mouse has moved over 50px from the centre of viewport
-    if (centreDist > 5) {
-      // create a vector to translate the view, allowing the user to control view speed
-      var direction = Vector.normalise(deltaCentre),
-      speed = Math.min(10, Math.pow(centreDist - 5, 2) * 0.0005);
+    translate = Vector.mult(direction, centreDist);
 
-      translate = Vector.mult(direction, speed);
+    // prevent the view moving outside the world bounds
+    if (render.bounds.min.x + translate.x < world.bounds.min.x)
+    translate.x = world.bounds.min.x - render.bounds.min.x;
 
-      // prevent the view moving outside the world bounds
-      if (render.bounds.min.x + translate.x < world.bounds.min.x)
-      translate.x = world.bounds.min.x - render.bounds.min.x;
+    if (render.bounds.max.x + translate.x > world.bounds.max.x)
+    translate.x = world.bounds.max.x - render.bounds.max.x;
 
-      if (render.bounds.max.x + translate.x > world.bounds.max.x)
-      translate.x = world.bounds.max.x - render.bounds.max.x;
+    if (render.bounds.min.y + translate.y < world.bounds.min.y)
+    translate.y = world.bounds.min.y - render.bounds.min.y;
 
-      if (render.bounds.min.y + translate.y < world.bounds.min.y)
-      translate.y = world.bounds.min.y - render.bounds.min.y;
+    if (render.bounds.max.y + translate.y > world.bounds.max.y)
+    translate.y = world.bounds.max.y - render.bounds.max.y;
 
-      if (render.bounds.max.y + translate.y > world.bounds.max.y)
-      translate.y = world.bounds.max.y - render.bounds.max.y;
-
-      // move the view
-      Bounds.translate(render.bounds, translate);
-    }
-  });
+    // move the view
+    Bounds.translate(render.bounds, translate);
+  }
 }
 
 function createTrail(){
@@ -67,9 +60,8 @@ function createTrail(){
       var point = trail[i].position,
       speed = trail[i].speed;
 
-      var hue = 250 + Math.round((1 - Math.min(1, speed / 10)) * 170);
-      render.context.fillStyle = 'hsl(' + hue + ', 100%, 55%)';
-      render.context.fillRect(point.x, point.y, 2, 2);
+      render.context.fillStyle = rocketColor;
+      render.context.fillRect(point.x, point.y, 1, 1);
     }
 
     render.context.globalAlpha = 1;
@@ -79,4 +71,51 @@ function createTrail(){
       trail.pop();
     }
   });
+}
+
+function getRocketAngularAngle(){
+  var refAngle = {x: 0, y: 1};
+  return Vector.angle(refAngle,rocket.position)
+}
+
+function updateStats(){
+  document.getElementById("rocket-speed").innerHTML = Math.floor(rocket.speed*100)*4;
+  document.getElementById("rocket-angular-speed").innerHTML = Math.floor(rocket.angularSpeed*1000);
+  document.getElementById("rocket-angle").innerHTML = Math.round(rocket.angle * 180 / Math.PI);
+  document.getElementById("rocket-velocity-angle").innerHTML = Math.round(getRocketAngularAngle() * 180 / Math.PI);
+  document.getElementById("rocket-height").innerHTML = Math.floor(Vector.magnitude(Vector.sub(rocket.position, ground.position))) - earthSize;
+  updateMinimap();
+}
+
+function initMinimap(){
+  var ctx = document.getElementById('minimap').getContext('2d');
+  ctx.fillStyle = spaceColor
+  ctx.fillRect(0,0,150,150);
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = '#88f';
+}
+
+function updateMinimap(){
+  var ctx = document.getElementById('minimap').getContext('2d');
+  var previousCtx = document.getElementById('previous-minimap').getContext('2d');
+  ctx.drawImage(document.getElementById('previous-minimap'), 0, 0);
+  ctx.beginPath();
+  var size = 150;
+  var scale = size / (world.bounds.max.x - world.bounds.min.x);
+  //draw dot for masses
+  ctx.fillStyle = '#aaf';
+  // for (var i = 1; i < mass.length; i++) {
+  //   ctx.fillRect(mass[i].position.x * scale + xOff - size, mass[i].position.y * scale + yOff, 3, 3);
+  // }
+  // //draw player's dot
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect((rocket.position.x - world.bounds.min.x) * scale, (rocket.position.y - world.bounds.min.y) * scale, 1, 1);
+  ctx.arc((ground.position.x - world.bounds.min.x) * scale, (ground.position.y - world.bounds.min.y) * scale, earthSize * scale, 0, 2 * Math.PI, false);
+  ctx.fillStyle = '#AAAAAA';
+  ctx.fill();
+
+  ctx.fillStyle = '#FF0000';
+  previousCtx.drawImage(document.getElementById('minimap'), 0, 0); // Backup the image
+  ctx.fillRect((rocket.position.x - world.bounds.min.x + 3) * scale, (rocket.position.y - world.bounds.min.y + 3) * scale, 3, 3);
+
 }

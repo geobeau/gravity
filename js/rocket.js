@@ -5,6 +5,9 @@ function createRocket(){
       attractors: [
         MatterAttractors.Attractors.gravity
       ]
+    },
+    render: {
+      fillStyle: earthColor
     }
   });
 
