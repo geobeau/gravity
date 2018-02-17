@@ -41,7 +41,7 @@ function actionBurn(options){
 function actionRCS(options){
   rocketRCSPush(options["impulsion"]/100000);
 
-  options["burnTime"] -= tickDuration;
+  options["burnTime"] -= tickDuration*rocket.timeScale;
   if(options["burnTime"] > 0){
     // We reschedule the burn for next tick
     scheduleActions(0,{"actionType":"rcs","options":options})

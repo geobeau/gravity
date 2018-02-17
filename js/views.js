@@ -79,7 +79,7 @@ function getRocketAngularAngle(){
 }
 
 function updateStats(){
-  document.getElementById("rocket-speed").innerHTML = Math.floor(rocket.speed*100)*4;
+  document.getElementById("rocket-speed").innerHTML = Math.floor(rocket.speed*100*4/rocket.timeScale);
   document.getElementById("rocket-angular-speed").innerHTML = Math.floor(rocket.angularSpeed*1000);
   document.getElementById("rocket-angle").innerHTML = Math.round(rocket.angle * 180 / Math.PI);
   document.getElementById("rocket-velocity-angle").innerHTML = Math.round(getRocketAngularAngle() * 180 / Math.PI)+90;
