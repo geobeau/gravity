@@ -21,17 +21,24 @@
       <div id="command-title">
         <h2>Control center</h2>
       </div>
+      <div id="time-stats">
+        <h3>Time elapsed</h3>
+        <p>T+: </td><td><span id="time-elapsed"></span></p>
+      </div>
       <div id="command-stats">
         <h3>Rocket</h3>
         <table>
-            <tr><td>Speed:</td><td><span id="rocket-speed"></span></td></tr>
-            <tr><td>Angular speed:</td><td><span id="rocket-angular-speed"></span></td></tr>
-            <tr><td>Angle:</td><td><span id="rocket-angle"></span></td></tr>
-            <tr><td>Velocity angle:</td><td><span id="rocket-velocity-angle"></span></td></tr>
-            <tr><td>Height:</td><td><span id="rocket-height"></span></td></tr>
+            <tr><td>Speed:</td><td class="value"><span id="rocket-speed"></span></td></tr>
+            <tr><td>Angular speed:</td><td class="value"><span id="rocket-angular-speed"></span></td></tr>
+            <tr><td>Angle:</td><td class="value"><span id="rocket-angle"></span></td></tr>
+            <tr><td>Velocity angle:</td><td class="value"><span id="rocket-velocity-angle"></span></td></tr>
+            <tr><td>Height:</td><td class="value"><span id="rocket-height"></span></td></tr>
         </table>
       </div>
-      <div><canvas id="minimap" width="150" height="150"></canvas><canvas id="previous-minimap" width="150" height="150"></canvas></div>
+      <div id="minimap-stats">
+        <canvas id="minimap" width="250" height="250"></canvas>
+        <canvas id="previous-minimap" width="250" height="250"></canvas>
+      </div>
 
     </div>
   </div>

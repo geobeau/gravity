@@ -5,6 +5,8 @@ spaceColor   = "#093651"
 earthColor   = "#E7ECEF"
 rocketColor  = "#A89B9D"
 
+// Time elapsed since begining in ms
+elapsed = 0
 
 renderWidth  = document.documentElement.clientWidth-300,
 renderHeight = document.documentElement.clientHeight-50,

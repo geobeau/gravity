@@ -1,5 +1,4 @@
 function initView(){
-
   viewportCentre = {
     x: render.options.width * 0.5,
     y: render.options.height * 0.5
@@ -84,13 +83,14 @@ function updateStats(){
   document.getElementById("rocket-angle").innerHTML = Math.round(rocket.angle * 180 / Math.PI);
   document.getElementById("rocket-velocity-angle").innerHTML = Math.round(getRocketAngularAngle() * 180 / Math.PI)+90;
   document.getElementById("rocket-height").innerHTML = Math.floor(Vector.magnitude(Vector.sub(rocket.position, ground.position))) - earthSize;
+  document.getElementById("time-elapsed").innerHTML = updateElapsedTime();
   updateMinimap();
 }
 
 function initMinimap(){
   var ctx = document.getElementById('minimap').getContext('2d');
   ctx.fillStyle = spaceColor
-  ctx.fillRect(0,0,150,150);
+  ctx.fillRect(0,0,250,250);
   ctx.lineWidth = 1;
   ctx.strokeStyle = '#88f';
 }
@@ -100,7 +100,7 @@ function updateMinimap(){
   var previousCtx = document.getElementById('previous-minimap').getContext('2d');
   ctx.drawImage(document.getElementById('previous-minimap'), 0, 0);
   ctx.beginPath();
-  var size = 150;
+  var size = 250;
   var scale = size / (world.bounds.max.x - world.bounds.min.x);
   //draw dot for masses
   ctx.fillStyle = '#aaf';
@@ -117,5 +117,28 @@ function updateMinimap(){
   ctx.fillStyle = '#FF0000';
   previousCtx.drawImage(document.getElementById('minimap'), 0, 0); // Backup the image
   ctx.fillRect((rocket.position.x - world.bounds.min.x + 3) * scale, (rocket.position.y - world.bounds.min.y + 3) * scale, 3, 3);
+}
 
+function updateElapsedTime(){
+  elapsed += tickDuration * rocket.timeScale
+  var start = new Date(0)
+	var end = new Date(elapsed)
+	diff = new Date(end - start)
+	var msec = diff.getMilliseconds()
+	var sec = diff.getSeconds()
+	var min = diff.getMinutes()
+	var hr = diff.getHours()-1
+	if (min < 10){
+		min = "0" + min
+	}
+	if (sec < 10){
+		sec = "0" + sec
+	}
+	if(msec < 10){
+		msec = "00" +msec
+	}
+	else if(msec < 100){
+		msec = "0" +msec
+	}
+	return (hr + ":" + min + ":" + sec + ":" + msec)
 }
